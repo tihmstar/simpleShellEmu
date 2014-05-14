@@ -15,5 +15,6 @@ int countOccurencesOfCharInString(const char *in, char mychar);
 int isFile(const char*path);
 int isDir(const char*path);
 void appendString(char **myString, const char *toAppend);
+void appendChar(char **myString, const char toAppend);
 char *getCopyOfString(const char *orig);
 

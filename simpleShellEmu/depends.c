@@ -34,18 +34,32 @@ char *getCopyOfString(const char *orig){
 void cleanInput(char **input){
     char *lCopy = getCopyOfString(*input);
     char *ret = malloc(1);
-    char **buf = malloc(countOccurencesOfCharInString("  ", *lCopy));
-    ret[0]=0;
     
     //remove pre " "
     while (lCopy[0] == ' ') {
         lCopy++;
     }
     
+    while (*lCopy) {
+        if (*lCopy == ' ' && *(lCopy+1) == ' ') {
+            lCopy++;
+        }
+        appendChar(&ret, *lCopy);
+        lCopy++;
+    }
     
+    char *rett;
+    if (ret[strlen(ret)] == ' ') {
+        rett = malloc(strlen(ret));
+        strncat(rett, ret, strlen(ret)-1);
+    }else{
+        rett = getCopyOfString(ret);
+    }
     
+    free(ret);
+    free(lCopy- (strlen(*input)-strlen(lCopy)));
     
-    //*input = ret;
+    *input = rett;
 }
 
 int isFile(const char*path){
@@ -63,7 +77,6 @@ int isDir(const char*path){
 
 void appendString(char **myString, const char *toAppend){
     
-    //printf("mny=%s\n",*myString);
     char* retString =malloc(strlen(*myString)+strlen(toAppend)+1);
     retString[0] = 0;
     strncat(retString, *myString, strlen(*myString));
@@ -71,7 +84,19 @@ void appendString(char **myString, const char *toAppend){
     retString[strlen(retString)+1] = 0;
     free(*myString);
     *myString = retString;
-    //printf("rr=%s",retString);
+}
+
+void appendChar(char **myString, const char toAppend){
+    
+    long int sLen = strlen(*myString);
+    
+    char* retString =malloc(sLen+2);
+    retString[0] = 0;
+    strncat(retString, *myString, strlen(*myString));
+    retString[sLen] = toAppend;
+    retString[sLen+1] = 0;
+    free(*myString);
+    *myString = retString;
 }
 
 
